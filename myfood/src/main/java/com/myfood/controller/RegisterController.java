@@ -19,7 +19,7 @@ import com.myfood.service.CustomerService;
 import com.myfood.service.RestaurantMenuService;
 
 @Controller
-@SessionAttributes("userData")
+@SessionAttributes("customer")
 public class RegisterController {
 
 
@@ -37,13 +37,14 @@ public class RegisterController {
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ModelAndView registerCustomer(@ModelAttribute("customer") Customer customer, final RedirectAttributes redirectAttributes){
 		System.out.println(customer);
-		ModelAndView model = new ModelAndView("home");
+		ModelAndView model = new ModelAndView("homeUser");
 		if(customerService.getCustomerByEmail(customer.getEmail()) != null){
 			redirectAttributes.addFlashAttribute("errorMsg", "Email Id already Registered.");
 			model = new ModelAndView("redirect:/RegistrationPage/");
 		}else{
 			String errorMessage = validateCustomer(customer);
 			if(errorMessage.length() == 0){	
+				customer.setRole("User");
 				int customerId = customerService.registerCustomer(customer);
 				customer.setCustomerId(customerId);
 				System.out.println("CustomerId:"+customer.getCustomerId());

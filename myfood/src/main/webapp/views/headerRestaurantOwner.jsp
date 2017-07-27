@@ -1,3 +1,4 @@
+<!-- sujanth -->
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -5,9 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Application Landing Page</title>
-
-    <!-- Bootstrap core CSS -->
+	<title>Application Landing Page</title>
+	<!-- Bootstrap core CSS -->
     <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -22,33 +22,32 @@
 	    }
     </style>
   </head>
-
-  <body>
+<body>
   <c:url value="/getUserProfile/${customerId}" var="userUrl" />
-  <c:url value="/home" var="homePageUrl" />
+  <c:url value="/views/homeRestaurantOwner.jsp" var="homePageUrlRestaurantOwner" />
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
 		  <img src="<c:url value="/resources/images/myfood.png" />" style="width:180px;height:50px;">
-		  <button type="button" class="btn btn-default btn-lg" onclick="location.href='${homePageUrl}'">
+		  <button type="button" class="btn btn-default btn" onclick="location.href='${homePageUrlRestaurantOwner}'">
 				<span class="glyphicon glyphicon-home"></span>
 		  </button>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li>
-            	<button type="submit" class="btn btn-default btn-lg" onclick="location.href='${userUrl}'">
+            	<button type="submit" class="btn btn-default btn" onclick="location.href='${userUrl}'">
 					<span class="glyphicon glyphicon-user"></span>  Profile
 				</button>
             </li>
             <li>
-	            <button type="button" class="btn btn-default btn-lg">
+	            <button type="button" class="btn btn-default btn">
 					<span class="glyphicon glyphicon-shopping-cart"></span>  Cart
 				</button>
 			</li>
 			<li><form action="">
-            	<button type="submit" class="btn btn-default btn-lg">Sign Out</button>
+            	<button type="submit" class="btn btn-default btn">Sign Out</button>
             </form></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -65,5 +64,5 @@
     <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
-  </body>
+</body>
 </html>

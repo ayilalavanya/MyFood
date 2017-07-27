@@ -85,4 +85,13 @@ public class CartItem {
 	public void setCartPK(CartPK cartPK) {
 		this.cartPK = cartPK;
 	}
+
+	@Override
+	public String toString() {
+		return "CartItem [cartPK=" + cartPK + ", itemId=" + itemId + ", restaurantId=" + restaurantId + ", itemName="
+				+ itemName + ", itemQuantity=" + itemQuantity + ", itemCost=" + itemCost + ", activeFlag=" + activeFlag
+				+ "]";
+	}
+	
+	
 }

@@ -1,5 +1,7 @@
 package com.myfood.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,18 +25,7 @@ public class CartServiceImpl implements CartService{
 	@Transactional
 	public int addItemToCart(int itemId, int customerId) {
 		MenuItem item = restaurantMenuDao.getMenuByItemId(itemId);
-		CartItem cartItem = new CartItem();
-		CartPK cartPK = new CartPK();
-		cartPK.setCartIndexId(foodCartDao.getRecentCartId()+1);
-		cartPK.setCustomerId(customerId);
-		cartItem.setCartPK(cartPK);
-		cartItem.setItemId(itemId);
-		cartItem.setRestaurantId(item.getRestaurantId());
-		cartItem.setItemName(item.getItemName());
-		cartItem.setItemQuantity(1);
-		cartItem.setItemCost(item.getCost());
-		cartItem.setActiveFlag("Y");
-		foodCartDao.addItemToCart(cartItem);
+		foodCartDao.addItemToCart(customerId, item);
 		return item.getRestaurantId();
 	}
 
@@ -52,6 +43,20 @@ public class CartServiceImpl implements CartService{
 
 	public void setFoodCartDao(FoodCartDao foodCartDao) {
 		this.foodCartDao = foodCartDao;
+	}
+	
+	public List<CartItem> getActiveCustomerCartByCustomerId(int customerId){
+		return foodCartDao.getActiveCustomerCartByCustomerId(customerId);
+	}
+	
+	public double getTotalItemsCost(List<CartItem> cartItems){
+		double totalCost = 0;
+		if(cartItems == null || cartItems.size() == 0)
+			return totalCost; //returns cost as 0.
+		for (CartItem cartItem : cartItems) {
+			totalCost = totalCost + cartItem.getItemCost(); 
+		}
+		return totalCost;
 	}
 
 }
